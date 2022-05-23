@@ -1,0 +1,28 @@
+{% extends 'shaker/base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'shaker/style.css' %}">
+<h1>Shaker App</h1>
+<h3>Ingredients:</h3>
+{% if ingredients_list %}
+<ul>
+   {% for ingredient in ingredients_list %}
+    <li>{% ingredient.name %}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No ingredients added to database yet.</p>
+{% endif %}
+<hr>
+<h3>Drinks:</h3>
+{% if drink_list %}
+<ul>
+    {% for drink in drink_list %}
+    <li>{% drink.drinkName %}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No drinks added to database yet.</p>
+{% endif %}
+
+{% endblock %}
