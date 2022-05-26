@@ -82,6 +82,7 @@ class AddIngredientView(View):
 
         return HttpResponseRedirect(reverse('shakerApp:index'))
 
+
 class AddDrinkView(View):
 
     def get(self, request):
