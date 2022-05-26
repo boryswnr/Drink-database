@@ -1,0 +1,14 @@
+{% extends 'shakerApp/base.html' %}
+{% block content %}
+<h2>Add ingredient</h2>
+<hr>
+<form action="{% url 'shakerApp:add_ingredient' %}" method="post">
+    {% csrf_token %}
+    {{ form_ingredients.as_p }}
+
+    <input type="submit" value="Add">
+</form>
+
+
+
+{% endblock %}

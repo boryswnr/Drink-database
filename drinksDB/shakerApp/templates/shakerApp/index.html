@@ -1,28 +1,72 @@
-{% extends 'shaker/base.html' %}
+{% extends 'shakerApp/base.html' %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'shaker/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shakerApp/style.css' %}">
 <h1>Shaker App</h1>
 <h3>Ingredients:</h3>
+
 {% if ingredients_list %}
+
+<h5>Soft drinks:</h5>
+{% if soft_drinks_list %}
 <ul>
-   {% for ingredient in ingredients_list %}
-    <li>{% ingredient.name %}</li>
+   {% for ingredient in soft_drinks_list %}
+    <li>{{ ingredient.name }}</li>
     {% endfor %}
 </ul>
 {% else %}
+<p>No soft drinks in database</p>
+{% endif %}
+
+<h5>Alcohols:</h5>
+{% if alcohols_list %}
+<ul>
+   {% for ingredient in alcohols_list %}
+    <li>{{ ingredient.name }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No alcohols in database</p>
+{% endif %}
+
+<h5>Fruits:</h5>
+{% if fruit_list %}
+<ul>
+   {% for ingredient in fruit_list %}
+    <li>{{ ingredient.name }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No fruits in database</p>
+{% endif %}
+
+<h5>Spices:</h5>
+{% if spices_list %}
+<ul>
+   {% for ingredient in spices_list %}
+    <li>{{ ingredient.name }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No spices in database</p>
+{% endif %}
+
+
+{% else %}
 <p>No ingredients added to database yet.</p>
 {% endif %}
+<a href="{% url 'shakerApp:add_ingredient' %}">Add ingredient</a>
 <hr>
 <h3>Drinks:</h3>
 {% if drink_list %}
 <ul>
     {% for drink in drink_list %}
-    <li>{% drink.drinkName %}</li>
+    <li>{{ drink.drinkName }}</li>
     {% endfor %}
 </ul>
 {% else %}
 <p>No drinks added to database yet.</p>
 {% endif %}
+<a href="{% url 'shakerApp:add_drink' %}">Add drink</a>
 
 {% endblock %}

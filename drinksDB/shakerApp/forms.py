@@ -1,20 +1,22 @@
 from django import forms
-from .models import requiredUtensil, ingredientType, Ingredients
+from .fields import GroupedModelChoiceField
+from .models import requiredUtensil, ingredientType, Ingredients, Type
 
 
 class DrinkForm(forms.Form):
     name = forms.CharField(max_length=100)
     utensil = forms.ChoiceField(choices=requiredUtensil)
+    ingredients = forms.ModelChoiceField(queryset=Ingredients.objects.all(), widget=forms.Select())
     # ingredient1 = forms.ModelChoiceField(queryset=Ingredients.objects.all())
-    # ingredient2 = forms.ModelChoiceField(queryset=Ingredients.objects.all())
-    # ingredient3 = forms.ModelChoiceField(queryset=Ingredients.objects.all(), required=False)
-    # ingredient4 = forms.ModelChoiceField(queryset=Ingredients.objects.all(), required=False)
-    # ingredient5 = forms.ModelChoiceField(queryset=Ingredients.objects.all(), required=False)
-    # ingredient6 = forms.ModelChoiceField(queryset=Ingredients.objects.all(), required=False)
-    # ingredient7 = forms.ModelChoiceField(queryset=Ingredients.objects.all(), required=False)
-    # ingredient8 = forms.ModelChoiceField(queryset=Ingredients.objects.all(), required=False)
 
 
 class IngredientForm(forms.Form):
-    name = forms.CharField(max_length=100)
-    type = forms.IntegerField(choices=ingredientType)
+    name = forms.CharField(max_length=100, label="Ingredient name")
+    type = GroupedModelChoiceField(
+        queryset=Type.objects.exclude(parent=None),
+        choices_groupby='parent'
+    )
+
+    class Meta:
+        model = Ingredients
+        fields = 'name'
