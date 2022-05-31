@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.http import HttpResponseRedirect
@@ -108,5 +108,38 @@ class AddDrinkView(View):
         else:
             messages.error(request, "Drink form is invalid.")
             print('form_drinks:', form_drinks)
+
+        return HttpResponseRedirect(reverse('shakerApp:index'))
+
+
+class EditDrinkView(View):
+
+    def get(self, request, pk):
+        drink = get_object_or_404(DrinkRecipe, pk=pk)
+        form = DrinkForm(
+            initial={
+                'name': drink.name,
+                'utensil': drink.utensil,
+                'ingredients': drink.ingredients.all(),
+                'preparation': drink.preparation,
+            }
+        )
+
+        context = {
+            'drink': drink,
+            'form': form
+        }
+
+        return render(request, 'shakerApp/edit_drink.html', context)
+
+    def post(self, request, pk):
+        drink = get_object_or_404(DrinkRecipe, pk=pk)
+        form = DrinkForm(request.POST)
+        if form.is_valid():
+            drink.name = form.cleaned_data["name"]
+            drink.utensil = form.cleaned_data["utensil"]
+            drink.preparation = form.cleaned_data["preparation"]
+            drink.ingredients.set(form.cleaned_data["ingredients"])
+            drink.save()
 
         return HttpResponseRedirect(reverse('shakerApp:index'))

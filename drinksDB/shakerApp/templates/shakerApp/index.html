@@ -61,7 +61,7 @@
 {% if drink_list %}
 <ul>
     {% for drink in drink_list %}
-    <li>{{ drink.name }}</li>
+    <li>{{ drink.name }} <a href="{% url 'shakerApp:edit_drink' drink.id %}">Edit</a> </li>
     {% endfor %}
 </ul>
 {% else %}

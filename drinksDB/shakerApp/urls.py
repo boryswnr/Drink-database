@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('add_ingredient/', views.AddIngredientView.as_view(), name='add_ingredient'),
     path('add_drink/', views.AddDrinkView.as_view(), name='add_drink'),
+    path('edit_drink/<int:pk>/', views.EditDrinkView.as_view(), name='edit_drink'),
 ]

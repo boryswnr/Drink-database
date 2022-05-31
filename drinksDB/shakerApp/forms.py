@@ -6,7 +6,6 @@ from .models import requiredUtensil, ingredientType, Ingredients
 class DrinkForm(forms.Form):
     name = forms.CharField(max_length=100, label="Name:")
     utensil = forms.ChoiceField(choices=requiredUtensil, label="Required utensil:")
-    # ingredients = forms.ModelChoiceField(queryset=Ingredients.objects.all(), widget=forms.CheckboxSelectMultiple())
     ingredients = forms.ModelMultipleChoiceField(
         queryset=Ingredients.objects.all(),
         widget=forms.CheckboxSelectMultiple()
