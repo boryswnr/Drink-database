@@ -32,29 +32,29 @@ class IndexView(View):
         }
         return render(request, 'shakerApp/index.html', context)
 
-    def post(self, request):
-        form_drinks = DrinkForm(request.POST)
-        form_ingredients = IngredientForm(request.POST)
-
-        if form_ingredients.is_valid():
-
-            Ingredients.objects.create(
-                name=form_ingredients.cleaned_data['name'],
-                type=form_ingredients.cleaned_data['type']
-            )
-        else:
-            messages.error(request, "Ingredient form was invalid.")
-
-        if form_drinks.is_valid():
-
-            DrinkRecipe.objects.create(
-                drinkName=form_drinks.cleaned_data['drinkName'],
-                ingredients=form_drinks.cleaned_data['ingredients']
-            )
-        else:
-            messages.error(request, "Drinks form was invalid.")
-
-        return HttpResponseRedirect(reverse('shakerApp:index'))
+    # def post(self, request):
+    #     form_drinks = DrinkForm(request.POST)
+    #     form_ingredients = IngredientForm(request.POST)
+    #
+    #     if form_ingredients.is_valid():
+    #
+    #         Ingredients.objects.create(
+    #             name=form_ingredients.cleaned_data['name'],
+    #             type=form_ingredients.cleaned_data['type']
+    #         )
+    #     else:
+    #         messages.error(request, "Ingredient form was invalid.")
+    #
+    #     if form_drinks.is_valid():
+    #
+    #         DrinkRecipe.objects.create(
+    #             drinkName=form_drinks.cleaned_data['drinkName'],
+    #             ingredients=form_drinks.cleaned_data['ingredients']
+    #         )
+    #     else:
+    #         messages.error(request, "Drinks form was invalid.")
+    #
+    #     return HttpResponseRedirect(reverse('shakerApp:index'))
 
 
 class AddIngredientView(View):
@@ -98,14 +98,15 @@ class AddDrinkView(View):
         form_drinks = DrinkForm(request.POST)
 
         if form_drinks.is_valid():
-
+            print('form_drinks:', form_drinks)
             DrinkRecipe.objects.create(
-                name=form_drinks.cleaned_data('name'),
-                utensil=form_drinks.cleaned_data('utensil'),
-                ingredients=form_drinks.cleaned_data('ingredients')
-
+                name=form_drinks.cleaned_data['name'],
+                utensil=form_drinks.cleaned_data['utensil'],
+                # ingredients=form_drinks.cleaned_data['ingredients'],
+                preparation=form_drinks.cleaned_data['preparation']
             )
         else:
             messages.error(request, "Drink form is invalid.")
+            print('form_drinks:', form_drinks)
 
         return HttpResponseRedirect(reverse('shakerApp:index'))

@@ -22,6 +22,10 @@ class Ingredients(models.Model):
 
 
 class DrinkRecipe(models.Model):
-    drinkName = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     ingredients = models.ManyToManyField(Ingredients)
+    utensil = models.IntegerField(choices=requiredUtensil, default=0)
     preparation = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.drinkName
