@@ -1,9 +1,9 @@
 {% extends 'shakerApp/base.html' %}
 {% block content %}
-<h2>Edit drink</h2>
+<h2>Editing {{ ingredient.name }}</h2>
 <hr>
 
-<form action="{% url 'shakerApp:edit_drink' drink.id %}" method="post">
+<form action="{% url 'shakerApp:edit_ingredient' ingredient.id %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
 

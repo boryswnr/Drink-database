@@ -129,3 +129,43 @@ class DeleteDrinkView(View):
         messages.info(request, "Drink deleted successfully.")
 
         return HttpResponseRedirect(reverse('shakerApp:index'))
+
+
+class EditIngredientView(View):
+
+    def get(self, request, pk):
+        ingredient = get_object_or_404(Ingredients, pk=pk)
+        form = IngredientForm(
+            initial={
+                "type": ingredient.type,
+                "name": ingredient.name
+            }
+        )
+
+        context = {
+            'ingredient': ingredient,
+            'form': form
+        }
+
+        return render(request, "shakerApp/edit_ingredient.html", context)
+
+    def post(self, request, pk):
+        ingredient = get_object_or_404(Ingredients, pk=pk)
+        form = IngredientForm(request.POST)
+
+        if form.is_valid():
+            ingredient.type = form.cleaned_data['type']
+            ingredient.name = form.cleaned_data['name']
+            ingredient.save()
+
+        return HttpResponseRedirect(reverse('shakerApp:index'))
+
+
+class DeleteIngredientView(View):
+
+    def get(self, request, pk):
+        ingredient = get_object_or_404(Ingredients, pk=pk)
+        ingredient.delete()
+        messages.info(request, "Ingredient deleted successfully")
+
+        return HttpResponseRedirect(reverse('shakerApp:index'))

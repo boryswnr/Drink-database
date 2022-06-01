@@ -11,7 +11,11 @@
 {% if soft_drinks_list %}
 <ul>
    {% for ingredient in soft_drinks_list %}
-    <li>{{ ingredient.name }}</li>
+    <li>
+        {{ ingredient.name }}
+        <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
+        <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
+    </li>
     {% endfor %}
 </ul>
 {% else %}
@@ -22,7 +26,11 @@
 {% if alcohols_list %}
 <ul>
    {% for ingredient in alcohols_list %}
-    <li>{{ ingredient.name }}</li>
+    <li>
+        {{ ingredient.name }}
+        <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
+        <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
+    </li>
     {% endfor %}
 </ul>
 {% else %}
@@ -33,7 +41,11 @@
 {% if fruit_list %}
 <ul>
    {% for ingredient in fruit_list %}
-    <li>{{ ingredient.name }}</li>
+    <li>
+        {{ ingredient.name }}
+        <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
+        <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
+    </li>
     {% endfor %}
 </ul>
 {% else %}
@@ -44,7 +56,11 @@
 {% if spices_list %}
 <ul>
    {% for ingredient in spices_list %}
-    <li>{{ ingredient.name }}</li>
+    <li>
+        {{ ingredient.name }}
+        <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
+        <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
+    </li>
     {% endfor %}
 </ul>
 {% else %}
