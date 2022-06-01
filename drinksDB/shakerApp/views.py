@@ -32,30 +32,6 @@ class IndexView(View):
         }
         return render(request, 'shakerApp/index.html', context)
 
-    # def post(self, request):
-    #     form_drinks = DrinkForm(request.POST)
-    #     form_ingredients = IngredientForm(request.POST)
-    #
-    #     if form_ingredients.is_valid():
-    #
-    #         Ingredients.objects.create(
-    #             name=form_ingredients.cleaned_data['name'],
-    #             type=form_ingredients.cleaned_data['type']
-    #         )
-    #     else:
-    #         messages.error(request, "Ingredient form was invalid.")
-    #
-    #     if form_drinks.is_valid():
-    #
-    #         DrinkRecipe.objects.create(
-    #             drinkName=form_drinks.cleaned_data['drinkName'],
-    #             ingredients=form_drinks.cleaned_data['ingredients']
-    #         )
-    #     else:
-    #         messages.error(request, "Drinks form was invalid.")
-    #
-    #     return HttpResponseRedirect(reverse('shakerApp:index'))
-
 
 class AddIngredientView(View):
 
@@ -141,5 +117,15 @@ class EditDrinkView(View):
             drink.preparation = form.cleaned_data["preparation"]
             drink.ingredients.set(form.cleaned_data["ingredients"])
             drink.save()
+
+        return HttpResponseRedirect(reverse('shakerApp:index'))
+
+
+class DeleteDrinkView(View):
+
+    def get(self, request, pk):
+        drink = get_object_or_404(DrinkRecipe, pk=pk)
+        drink.delete()
+        messages.info(request, "Drink deleted successfully.")
 
         return HttpResponseRedirect(reverse('shakerApp:index'))

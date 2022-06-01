@@ -1,5 +1,4 @@
 from django import forms
-# from .fields import GroupedModelChoiceField
 from .models import requiredUtensil, ingredientType, Ingredients
 
 
