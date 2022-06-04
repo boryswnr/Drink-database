@@ -15,3 +15,7 @@ class DrinkForm(forms.Form):
 class IngredientForm(forms.Form):
     name = forms.CharField(max_length=100, label="Ingredient name")
     type = forms.ChoiceField(choices=ingredientType)
+
+
+class SearchIngredientsForm(forms.Form):
+    query = forms.CharField(max_length=100, label="SearchBAR...")

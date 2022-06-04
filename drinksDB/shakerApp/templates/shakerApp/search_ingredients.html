@@ -1,0 +1,25 @@
+{% extends 'shakerApp/base.html' %}
+{% block content %}
+
+{% if ingredients_list %}
+{% for ingredient in ingredients_list %}
+{{ ingredient }}
+{% endfor %}
+{% else %}
+<p>No ingredients found</p>
+{% endif %}
+
+<hr>
+
+{% if drinks_list %}
+{% for drink in drinks_list %}
+{{ drink }}
+{% endfor %}
+{% else %}
+<p>No drinks found</p>
+{% endif %}
+
+
+
+
+{% endblock %}

@@ -1,10 +1,11 @@
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.http import HttpResponseRedirect
 
-from .forms import IngredientForm, DrinkForm
+from .forms import IngredientForm, DrinkForm, SearchIngredientsForm
 from .models import Ingredients, DrinkRecipe
 
 
@@ -169,3 +170,29 @@ class DeleteIngredientView(View):
         messages.info(request, "Ingredient deleted successfully")
 
         return HttpResponseRedirect(reverse('shakerApp:index'))
+
+
+class SearchIngredientsView(View):
+
+    def get(self, request):
+        form = SearchIngredientsForm()
+        drinks = DrinkRecipe
+        ingredients_model = Ingredients
+        query = self.request.GET.get("q")
+        ingredients_list = Ingredients.objects.filter(
+            Q(name__icontains=query) | Q(type__icontains=query)
+        )
+
+        drinks_list = DrinkRecipe.objects.filter(
+            ingredients__name__icontains=query
+        )
+
+        context = {
+            'form': form,
+            'ingredients_model': ingredients_model,
+            'drinks': drinks,
+            'drinks_list': drinks_list,
+            'ingredients_list': ingredients_list
+        }
+
+        return render(request, 'shakerApp/search_ingredients.html', context)

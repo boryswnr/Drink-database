@@ -29,3 +29,6 @@ class DrinkRecipe(models.Model):
 
     def __str__(self):
         return self.name
+
+    def __unicode__(self):
+        return self.ingredients.name

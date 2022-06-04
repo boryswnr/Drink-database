@@ -3,6 +3,12 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'shakerApp/style.css' %}">
 <h1>Shaker App</h1>
+
+<form method="get" action="{% url 'shakerApp:search_ingredients' %}">
+    <input name="q" type="text" placeholder="SearchBAR...">
+    <input type="submit" value="Search">
+</form>
+
 <h3>Ingredients:</h3>
 
 {% if ingredients_list %}
