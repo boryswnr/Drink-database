@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% if messages %}
+{% for message in messages %}
+<h4>{{ message }}</h4>
+{% endfor %}
+{% endif %}
+
+<h3>Login</h3>
+
+<form action="{% url 'shakerApp:login' %}" method="post">
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<input type="submit" value="Login">
+</form>
+
+<a href="{% url 'shakerApp:registration' %}">Create new account</a>
+
+</body>
+</html>

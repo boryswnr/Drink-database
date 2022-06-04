@@ -19,3 +19,15 @@ class IngredientForm(forms.Form):
 
 class SearchIngredientsForm(forms.Form):
     query = forms.CharField(max_length=100, label="SearchBAR...")
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Username')
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+
+
+class RegistrationForm(forms.Form):
+    username = forms.CharField(label="Username")
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password_conf = forms.CharField(label="Password confirmation", widget=forms.PasswordInput)
+    email = forms.EmailField(label="Email (optional)", required=False)

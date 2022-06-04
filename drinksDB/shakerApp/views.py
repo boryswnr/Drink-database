@@ -1,11 +1,14 @@
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
 from django.http import HttpResponseRedirect
 
-from .forms import IngredientForm, DrinkForm, SearchIngredientsForm
+from .forms import IngredientForm, DrinkForm, SearchIngredientsForm, LoginForm, RegistrationForm
 from .models import Ingredients, DrinkRecipe
 
 
@@ -34,7 +37,7 @@ class IndexView(View):
         return render(request, 'shakerApp/index.html', context)
 
 
-class AddIngredientView(View):
+class AddIngredientView(LoginRequiredMixin, View):
 
     def get(self, request):
         form_ingredients = IngredientForm()
@@ -60,7 +63,7 @@ class AddIngredientView(View):
         return HttpResponseRedirect(reverse('shakerApp:index'))
 
 
-class AddDrinkView(View):
+class AddDrinkView(LoginRequiredMixin, View):
 
     def get(self, request):
         form_drinks = DrinkForm()
@@ -89,7 +92,7 @@ class AddDrinkView(View):
         return HttpResponseRedirect(reverse('shakerApp:index'))
 
 
-class EditDrinkView(View):
+class EditDrinkView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         drink = get_object_or_404(DrinkRecipe, pk=pk)
@@ -122,7 +125,7 @@ class EditDrinkView(View):
         return HttpResponseRedirect(reverse('shakerApp:index'))
 
 
-class DeleteDrinkView(View):
+class DeleteDrinkView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         drink = get_object_or_404(DrinkRecipe, pk=pk)
@@ -132,7 +135,7 @@ class DeleteDrinkView(View):
         return HttpResponseRedirect(reverse('shakerApp:index'))
 
 
-class EditIngredientView(View):
+class EditIngredientView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         ingredient = get_object_or_404(Ingredients, pk=pk)
@@ -162,7 +165,7 @@ class EditIngredientView(View):
         return HttpResponseRedirect(reverse('shakerApp:index'))
 
 
-class DeleteIngredientView(View):
+class DeleteIngredientView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         ingredient = get_object_or_404(Ingredients, pk=pk)
@@ -196,3 +199,70 @@ class SearchIngredientsView(View):
         }
 
         return render(request, 'shakerApp/search_ingredients.html', context)
+
+
+class LoginView(View):
+
+    def get(self, request):
+        form = LoginForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'shakerApp/login.html', context)
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                url = request.GET.get('next')
+                if url:
+                    return redirect(url)
+
+                return HttpResponseRedirect(reverse('shakerApp:index'))
+
+            messages.error(request, "Username or password invalid")
+            return HttpResponseRedirect(reverse('shakerApp:login'))
+
+        messages.error(request, "Form was not valid")
+        return HttpResponseRedirect(reverse('shakerApp:login'))
+
+
+class LogoutView(View):
+
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse('shakerApp:index'))
+
+
+class RegistrationView(View):
+
+    def get(self, request):
+        form = RegistrationForm()
+        context = {
+            "form": form
+        }
+        return render(request, 'shakerApp/register.html', context)
+
+    def post(self, request):
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data["password"] == form.cleaned_data["password_conf"]:
+                try:
+                    User.objects.get(username=form.cleaned_data["username"])
+                    messages.error(request, "User already exists")
+                    return HttpResponseRedirect(reverse("shakerApp:registration"))
+                except User.DoesNotExist:
+                    user = User.objects.create_user(
+                        username=form.cleaned_data["username"],
+                        password=form.cleaned_data["password"],
+                        email=form.cleaned_data["email"]
+                    )
+                    login(request, user)
+                    return HttpResponseRedirect(reverse("shakerApp:index"))
+            else:
+                messages.error(request, "Passwords are wrong!")
+                return HttpResponseRedirect(reverse("shakerApp:registration"))
