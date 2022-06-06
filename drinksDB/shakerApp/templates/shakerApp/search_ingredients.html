@@ -1,6 +1,6 @@
-{% extends 'shakerApp/base.html' %}
-{% block content %}
+c
 
+<h3>Ingredients you're looking for:</h3>
 {% if ingredients_list %}
 {% for ingredient in ingredients_list %}
 {{ ingredient }}
@@ -11,6 +11,7 @@
 
 <hr>
 
+<h3>Drinks containing them: </h3>
 {% if drinks_list %}
 {% for drink in drinks_list %}
 {{ drink }}

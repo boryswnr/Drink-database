@@ -16,5 +16,6 @@ urlpatterns = [
     path('search_ingredients/', views.SearchIngredientsView.as_view(), name="search_ingredients"),
     path('accounts/login/', views.LoginView.as_view(), name="login"),
     path('accounts/logout/', views.LogoutView.as_view(), name="logout"),
-    path('register/', views.RegistrationView.as_view(), name="registration")
+    path('register/', views.RegistrationView.as_view(), name="registration"),
+    path('drink_details/<int:pk>', views.DetailDrinkView.as_view(), name='drink_details'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

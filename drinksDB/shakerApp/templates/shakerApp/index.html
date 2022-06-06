@@ -1,7 +1,7 @@
 {% extends 'shakerApp/base.html' %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'shakerApp/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 <h1>Shaker App</h1>
 
 <form method="get" action="{% url 'shakerApp:search_ingredients' %}">
@@ -48,6 +48,7 @@
 <ul class="list horizontal ingredients fruits">
     {% for ingredient in fruit_list %}
     <li>
+        <img src="{{ ingredient.ingredientImage.url }}" height="50px" width="50px">
         {{ ingredient.name }}
         <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
         <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
@@ -84,7 +85,7 @@
 <ul class="list horizontal drinks">
     {% for drink in drink_list %}
     <li>
-        {{ drink.name }}
+        <a href="{% url 'shakerApp:drink_details' drink.id %}">{{ drink.name }}</a>
         <a href="{% url 'shakerApp:edit_drink' drink.id %}">Edit</a>
         <a href="{% url 'shakerApp:delete_drink' drink.id %}">Delete</a>
     </li>
