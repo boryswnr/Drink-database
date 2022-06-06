@@ -16,6 +16,7 @@ requiredUtensil = (
 class Ingredients(models.Model):
     type = models.IntegerField(choices=ingredientType)
     name = models.CharField(max_length=100)
+    ingredientImage = models.ImageField(default='no-photo.png', upload_to='static/shakerApp/media')
 
     def __str__(self):
         return self.name
@@ -26,6 +27,7 @@ class DrinkRecipe(models.Model):
     ingredients = models.ManyToManyField(Ingredients)
     utensil = models.IntegerField(choices=requiredUtensil, default=0)
     preparation = models.CharField(max_length=1000)
+    drinkImage = models.ImageField(default='no-photo.png', upload_to='static/shakerApp/media')
 
     def __str__(self):
         return self.name

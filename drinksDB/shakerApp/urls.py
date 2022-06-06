@@ -1,5 +1,8 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 app_name = "shakerApp"
 urlpatterns = [
@@ -14,4 +17,4 @@ urlpatterns = [
     path('accounts/login/', views.LoginView.as_view(), name="login"),
     path('accounts/logout/', views.LogoutView.as_view(), name="logout"),
     path('register/', views.RegistrationView.as_view(), name="registration")
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

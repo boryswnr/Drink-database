@@ -10,11 +10,13 @@ class DrinkForm(forms.Form):
         widget=forms.CheckboxSelectMultiple()
     )
     preparation = forms.CharField(widget=forms.Textarea)
+    image = forms.ImageField(required=False)
 
 
 class IngredientForm(forms.Form):
     name = forms.CharField(max_length=100, label="Ingredient name")
     type = forms.ChoiceField(choices=ingredientType)
+    image = forms.ImageField(required=False)
 
 
 class SearchIngredientsForm(forms.Form):

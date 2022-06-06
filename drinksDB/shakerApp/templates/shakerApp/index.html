@@ -15,8 +15,8 @@
 
 <h5>Soft drinks:</h5>
 {% if soft_drinks_list %}
-<ul>
-   {% for ingredient in soft_drinks_list %}
+<ul class="list horizontal ingredients softs">
+    {% for ingredient in soft_drinks_list %}
     <li>
         {{ ingredient.name }}
         <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
@@ -30,8 +30,8 @@
 
 <h5>Alcohols:</h5>
 {% if alcohols_list %}
-<ul>
-   {% for ingredient in alcohols_list %}
+<ul class="list horizontal ingredients alcohols">
+    {% for ingredient in alcohols_list %}
     <li>
         {{ ingredient.name }}
         <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
@@ -45,8 +45,8 @@
 
 <h5>Fruits:</h5>
 {% if fruit_list %}
-<ul>
-   {% for ingredient in fruit_list %}
+<ul class="list horizontal ingredients fruits">
+    {% for ingredient in fruit_list %}
     <li>
         {{ ingredient.name }}
         <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
@@ -60,8 +60,8 @@
 
 <h5>Spices:</h5>
 {% if spices_list %}
-<ul>
-   {% for ingredient in spices_list %}
+<ul class="list horizontal ingredients spices">
+    {% for ingredient in spices_list %}
     <li>
         {{ ingredient.name }}
         <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
@@ -81,7 +81,7 @@
 <hr>
 <h3>Drinks:</h3>
 {% if drink_list %}
-<ul>
+<ul class="list horizontal drinks">
     {% for drink in drink_list %}
     <li>
         {{ drink.name }}

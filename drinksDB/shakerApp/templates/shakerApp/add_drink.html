@@ -3,7 +3,7 @@
 <h2>Add drink</h2>
 <hr>
 
-<form action="{% url 'shakerApp:add_drink' %}" method="post">
+<form action="{% url 'shakerApp:add_drink' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form_drinks.as_p }}
 

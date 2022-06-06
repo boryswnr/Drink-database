@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Shakerapp</title>
+    <link rel="stylesheet" href="../../static/shakerApp/style.css">
 </head>
+
 <body>
-{% if user.is_authenticated %}
-<a href="{% url 'shakerApp:logout' %}">Logout</a>
-{% else %}
-<a href="{% url 'shakerApp:login' %}">Login</a> or <a href="{% url 'shakerApp:registration' %}">Register</a>.
-{% endif %}
+    <a href="{% url 'shakerApp:index' %}">Home</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'shakerApp:logout' %}">Logout</a>
+    <br>
+    {% else %}
+    <a href="{% url 'shakerApp:login' %}">Login</a> or <a href="{% url 'shakerApp:registration' %}">Register</a>.
+    <br>
+    {% endif %}
 
-{% if messages %}
-{% for message in messages %}
-<h4>{{ message }}</h4>
-{% endfor %}
-{% endif %}
+    {% if messages %}
+    {% for message in messages %}
+    <h4>{{ message }}</h4>
+    {% endfor %}
+    {% endif %}
 
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 
 </body>
+
 </html>
