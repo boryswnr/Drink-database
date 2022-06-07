@@ -1,13 +1,15 @@
 {% extends 'shakerApp/base.html' %}
 {% block content %}
-<h2>Edit drink</h2>
-<hr>
+<div class="container">
+    <h2>Edit drink</h2>
+    <hr>
+    <img src="{{ drink.image.url }}" height="100px" width="100px">
+    <form action="{% url 'shakerApp:edit_drink' drink.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-<form action="{% url 'shakerApp:edit_drink' drink.id %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <input type="submit" value="Confirm">
-</form>
+        <input type="submit" value="Confirm">
+    </form>
+</div>
 
 {% endblock %}

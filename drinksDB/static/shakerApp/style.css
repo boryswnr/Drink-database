@@ -1,8 +1,12 @@
-ul {
-    list-style-type: none;
+body {
+    background-color: bisque;
 }
 
-.list.horizontal {
+/* ul {
+    list-style-type: none;
+} */
+
+/* .list.horizontal {
     display: flex;
     flex-direction: row;
 }
@@ -11,4 +15,4 @@ ul {
     display: flex;
     flex-direction: column;
     margin: 0 15px 0 0;
-}
+} */

@@ -1,18 +1,22 @@
 {% extends 'shakerApp/base.html' %}
 {% block content %}
+<div class="container">
 
-<h4>{{ name }}</h4>
-<hr>
-<h5>Ingredients:</h5>
-<ul>
-    {% for ingredient in ingredients %}
-    <li>{{ ingredient.name }}</li>
-    {% endfor %}
-</ul>
+    <h4>
+        {{ name }} <a href="{% url 'shakerApp:edit_drink' id %}"><i class="fa-solid fa-pen-to-square"></a></i>
+    </h4>
+    <hr>
+    <img src="{{ image.url }}" height="100px" width="100px">
+    <h5>Ingredients:</h5>
+    <ul>
+        {% for ingredient in ingredients %}
+        <li>{{ ingredient.name }}</li>
+        {% endfor %}
+    </ul>
 
-<h5>Utensil: {% if utensil == 1 %}Glass{% else %}Shaker{% endif %}</h5>
+    <h5>Utensil: {% if utensil == 1 %}Glass{% else %}Shaker{% endif %}</h5>
 
-<h5>Preparation:</h5>
-<p>{{ preparation }}</p>
-
+    <h5>Preparation:</h5>
+    <p>{{ preparation }}</p>
+</div>
 {% endblock %}

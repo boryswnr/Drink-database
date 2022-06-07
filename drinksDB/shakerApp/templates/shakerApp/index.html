@@ -1,99 +1,122 @@
 {% extends 'shakerApp/base.html' %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-<h1>Shaker App</h1>
 
-<form method="get" action="{% url 'shakerApp:search_ingredients' %}">
+<form class="searchbar" method="get" action="{% url 'shakerApp:search_ingredients' %}">
     <input name="q" type="text" placeholder="SearchBAR...">
     <input type="submit" value="Search">
 </form>
 
-<h3>Ingredients:</h3>
 
-{% if ingredients_list %}
+<div class="container index">
+    <div class="ingredients-wrapper">
+        <a class="btn-add ingredient" href="{% url 'shakerApp:add_ingredient' %}">Add ingredient</a>
+        <h3>Ingredients:</h3>
 
-<h5>Soft drinks:</h5>
-{% if soft_drinks_list %}
-<ul class="list horizontal ingredients softs">
-    {% for ingredient in soft_drinks_list %}
-    <li>
-        {{ ingredient.name }}
-        <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
-        <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No soft drinks in database</p>
-{% endif %}
+        {% if ingredients_list %}
 
-<h5>Alcohols:</h5>
-{% if alcohols_list %}
-<ul class="list horizontal ingredients alcohols">
-    {% for ingredient in alcohols_list %}
-    <li>
-        {{ ingredient.name }}
-        <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
-        <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No alcohols in database</p>
-{% endif %}
+        <h5>Soft drinks:</h5>
+        {% if soft_drinks_list %}
+        <ul class="list horizontal ingredients softs">
+            {% for ingredient in soft_drinks_list %}
+            <li>
+                {% if ingredient.image %}
+                <img src="{{ ingredient.image.url }}" height="50px" width="50px">
+                {% endif %}
+                {{ ingredient.name }}
+                <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
+                <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No soft drinks in database</p>
+        {% endif %}
 
-<h5>Fruits:</h5>
-{% if fruit_list %}
-<ul class="list horizontal ingredients fruits">
-    {% for ingredient in fruit_list %}
-    <li>
-        <img src="{{ ingredient.ingredientImage.url }}" height="50px" width="50px">
-        {{ ingredient.name }}
-        <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
-        <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No fruits in database</p>
-{% endif %}
+        <h5>Alcohols:</h5>
+        {% if alcohols_list %}
+        <ul class="list horizontal ingredients alcohols">
+            {% for ingredient in alcohols_list %}
+            <li>
+                {% if ingredient.image %}
+                <img src="{{ ingredient.image.url }}" height="50px" width="50px">
+                {% endif %}
+                {{ ingredient.name }}
+                <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
+                <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No alcohols in database</p>
+        {% endif %}
 
-<h5>Spices:</h5>
-{% if spices_list %}
-<ul class="list horizontal ingredients spices">
-    {% for ingredient in spices_list %}
-    <li>
-        {{ ingredient.name }}
-        <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
-        <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No spices in database</p>
-{% endif %}
+        <h5>Fruits:</h5>
+        {% if fruit_list %}
+        <ul class="list horizontal ingredients fruits">
+            {% for ingredient in fruit_list %}
+            <li>
+                {% if ingredient.image %}
+                <img src="{{ ingredient.image.url }}" height="50px" width="50px">
+                {% endif %}
+                {{ ingredient.name }}
+                <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
+                <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No fruits in database</p>
+        {% endif %}
+
+        <h5>Spices:</h5>
+        {% if spices_list %}
+        <ul class="list horizontal ingredients spices">
+            {% for ingredient in spices_list %}
+            <li>
+                {% if ingredient.image %}
+                <img src="{{ ingredient.image.url }}" height="50px" width="50px">
+                {% endif %}
+                {{ ingredient.name }}
+                <a href="{% url 'shakerApp:edit_ingredient' ingredient.id %}">Edit</a>
+                <a href="{% url 'shakerApp:delete_ingredient' ingredient.id %}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No spices in database</p>
+        {% endif %}
 
 
-{% else %}
-<p>No ingredients added to database yet.</p>
-{% endif %}
-<a href="{% url 'shakerApp:add_ingredient' %}">Add ingredient</a>
-<hr>
-<h3>Drinks:</h3>
-{% if drink_list %}
-<ul class="list horizontal drinks">
-    {% for drink in drink_list %}
-    <li>
-        <a href="{% url 'shakerApp:drink_details' drink.id %}">{{ drink.name }}</a>
-        <a href="{% url 'shakerApp:edit_drink' drink.id %}">Edit</a>
-        <a href="{% url 'shakerApp:delete_drink' drink.id %}">Delete</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No drinks added to database yet.</p>
-{% endif %}
-<a href="{% url 'shakerApp:add_drink' %}">Add drink</a>
+        {% else %}
+        <p>No ingredients added to database yet.</p>
+        {% endif %}
 
+    </div>
+    <hr class="border-middle">
+    <div class="drinks-wrapper">
+        <a class="btn-add drink" href="{% url 'shakerApp:add_drink' %}">Add drink</a>
+        <h3>Drinks:</h3>
+        {% if drink_list %}
+        <ul class="list horizontal drinks">
+            {% for drink in drink_list %}
+            <li>
+                <a href="{% url 'shakerApp:drink_details' drink.id %}">
+                    {% if drink.image %}
+                    <img src="{{ drink.image.url }}" height="50px" width="50px">
+                    <br>
+                    {% endif %}
+                    {{ drink.name }}
+                </a>
+                <a href="{% url 'shakerApp:edit_drink' drink.id %}">Edit</a>
+                <a href="{% url 'shakerApp:delete_drink' drink.id %}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No drinks added to database yet.</p>
+        {% endif %}
+
+    </div>
+</div>
 {% endblock %}

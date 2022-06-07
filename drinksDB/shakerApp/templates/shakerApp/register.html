@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ShakerAPP - register</title>
-</head>
-<body>
+{% extends 'shakerApp/base.html' %}
+{% block content %}
 
-{% if messages %}
-{% for message in messages %}
-<h4>{{ message }}</h4>
-{% endfor %}
-{% endif %}
+<div class="container">
+    <h3>Register</h3>
 
-<h3>Register</h3>
+    <form action="{% url 'shakerApp:registration' %}" method="post">
+        {% csrf_token %}
 
-<form action="{% url 'shakerApp:registration' %}" method="post">
-{% csrf_token %}
+        {{ form.as_p }}
 
-{{ form.as_p }}
+        <input type="submit" value="Create account">
+    </form>
+</div>
 
-<input type="submit" value="Create account">
-</form>
-
-</body>
-</html>
+{% endblock %}

@@ -1,5 +1,67 @@
+html {
+    background-color: #e5e5e5;
+    font-family: 'Roboto', sans-serif;
+    transition: 300ms;
+    scroll-behavior: smooth;
+}
+
 ul {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #fca311;
+}
+
+img {
+    border-radius: 10px;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    font-weight: 700;
+}
+
+.navbar {
+    position: relative;
+    padding: 20px 0 20px 0;
+}
+
+.nav-links a {
+    margin: 0 10px 0 0;
+}
+
+.searchbar {
+    padding: 20px 10px 20px 10px;
+    text-align: center;
+}
+
+.container {
+    max-width: 1240px;
+    background-color: #14213d;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #ffffff;
+    padding: 15px;
+    border-radius: 15px;
+    color: #ffffff;
+
+}
+
+.container.index {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .list.horizontal {
@@ -10,5 +72,20 @@ ul {
 .list.horizontal li {
     display: flex;
     flex-direction: column;
-    margin: 0 15px 0 0;
+    margin: 0 25px 0 0;
+    justify-content: center;
+}
+
+.border-middle {
+    margin: 10px;
+}
+
+.btn-add {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 10px;
+}
+
+.fa-pen-to-square {
+    margin: 0 0 0 15px;
 }

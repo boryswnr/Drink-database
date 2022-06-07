@@ -56,7 +56,7 @@ class AddIngredientView(LoginRequiredMixin, View):
             Ingredients.objects.create(
                 name=form_ingredients.cleaned_data['name'],
                 type=form_ingredients.cleaned_data['type'],
-                ingredientImage=form_ingredients.cleaned_data['image'],
+                image=form_ingredients.cleaned_data['image'],
 
             )
         else:
@@ -84,7 +84,7 @@ class AddDrinkView(LoginRequiredMixin, View):
                 name=form_drinks.cleaned_data['name'],
                 utensil=form_drinks.cleaned_data['utensil'],
                 preparation=form_drinks.cleaned_data['preparation'],
-                drinkImage=form_drinks.cleaned_data['image'],
+                image=form_drinks.cleaned_data['image'],
             )
             new_drink.ingredients.set(form_drinks.cleaned_data["ingredients"])
         else:
@@ -100,11 +100,11 @@ class EditDrinkView(LoginRequiredMixin, View):
         drink = get_object_or_404(DrinkRecipe, pk=pk)
         form = DrinkForm(
             initial={
+                'image': drink.image,
                 'name': drink.name,
                 'utensil': drink.utensil,
                 'ingredients': drink.ingredients.all(),
                 'preparation': drink.preparation,
-                # 'image': drink.drinkImage,
             }
         )
 
@@ -119,11 +119,11 @@ class EditDrinkView(LoginRequiredMixin, View):
         drink = get_object_or_404(DrinkRecipe, pk=pk)
         form = DrinkForm(request.POST, request.FILES)
         if form.is_valid():
+            drink.image = form.cleaned_data["image"]
             drink.name = form.cleaned_data["name"]
             drink.utensil = form.cleaned_data["utensil"]
             drink.preparation = form.cleaned_data["preparation"]
             drink.ingredients.set(form.cleaned_data["ingredients"])
-            # drink.drinkImage = form.cleaned_data["image"]
             drink.save()
 
         return HttpResponseRedirect(reverse('shakerApp:index'))
@@ -149,7 +149,8 @@ class DetailDrinkView(View):
             'utensil': drink.utensil,
             'ingredients': drink.ingredients.all(),
             'preparation': drink.preparation,
-
+            'image': drink.image,
+            'id': drink.id,
         }
 
         return render(request, 'shakerApp/drink_details.html', context)
@@ -163,13 +164,13 @@ class EditIngredientView(LoginRequiredMixin, View):
             initial={
                 "type": ingredient.type,
                 "name": ingredient.name,
-                'image': ingredient.ingredientImage,
+                'image': ingredient.image,
             }
         )
 
         context = {
             'ingredient': ingredient,
-            'form': form
+            'form': form,
         }
 
         return render(request, "shakerApp/edit_ingredient.html", context)
@@ -181,7 +182,7 @@ class EditIngredientView(LoginRequiredMixin, View):
         if form.is_valid():
             ingredient.type = form.cleaned_data['type']
             ingredient.name = form.cleaned_data['name']
-            # ingredient.ingredientImage = form.cleaned_data['image']
+            ingredient.image = form.cleaned_data['image']
             ingredient.save()
 
         return HttpResponseRedirect(reverse('shakerApp:index'))
