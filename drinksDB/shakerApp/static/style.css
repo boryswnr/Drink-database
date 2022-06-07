@@ -27,9 +27,9 @@ img {
 h1 {
     font-family: 'Dancing Script', cursive;
     position: absolute;
-    top: 50%;
+    top: -20%;
     left: 50%;
-    transform: translate(-50%, -80%);
+    transform: translate(-50%);
     font-weight: 700;
 }
 
@@ -53,6 +53,7 @@ h1 {
     border-left: 2px solid #ffffff;
     border-right: 2px solid #ffffff;
     padding: 15px;
+    margin: 0 auto;
     border-radius: 15px;
     color: #ffffff;
 
@@ -64,9 +65,15 @@ h1 {
     justify-content: space-around;
 }
 
+.ingredients-wrapper,
+.drinks-wrapper {
+    width: 40%;
+}
+
 .list.horizontal {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .list.horizontal li {

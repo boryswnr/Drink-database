@@ -213,6 +213,8 @@ class SearchIngredientsView(View):
             ingredients__name__icontains=query
         )
 
+        print('drinks_list.id:', drinks_list.id)
+
         context = {
             'form': form,
             'ingredients_model': ingredients_model,
@@ -220,6 +222,7 @@ class SearchIngredientsView(View):
             'drinks_list': drinks_list,
             'ingredients_list': ingredients_list
         }
+        
 
         return render(request, 'shakerApp/search_ingredients.html', context)
 

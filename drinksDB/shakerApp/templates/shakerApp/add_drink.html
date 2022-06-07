@@ -2,6 +2,8 @@
 {% block content %}
 <div class="container">
     <h2>Add drink</h2>
+    <p>Haven't done your shopping? <a href="{% url 'shakerApp:add_ingredient' %}">Add ingredient! <i
+                class="fa-solid fa-pen-to-square"></i></a></p>
     <hr>
 
     <form action="{% url 'shakerApp:add_drink' %}" method="post" enctype="multipart/form-data">
